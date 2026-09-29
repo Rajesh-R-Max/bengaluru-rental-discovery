@@ -51,10 +51,15 @@
     listingGrid.querySelectorAll('[data-id]').forEach(button => button.addEventListener('click', () => openDetails(Number(button.dataset.id))));
   }
 
-  function openDetails(id) {
+  function openDetails(id, updateUrl = true) {
     const listing = data.listings.find(item => item.id === id);
     if (!listing) return;
-    dialogContent.innerHTML = `<div class="detail-image" style="--listing-image: url('${listing.image}')"><span>${listing.available}</span></div><p class="eyebrow">${listing.locality} · ${listing.type}</p><h2 id="dialog-title">${listing.title}</h2><div class="detail-price"><strong>${money(listing.rent)}</strong><span>per month · ${listing.deposit} deposit</span></div><dl class="facts"><div><dt>Furnishing</dt><dd>${listing.furnishing}</dd></div><div><dt>Nearby</dt><dd>${listing.landmark}</dd></div></dl><div class="detail-tags">${listing.tags.map(tag => `<span>${tag}</span>`).join('')}</div><div class="contact-actions"><a role="button" href="${whatsappUrl(listing)}" target="_blank" rel="noreferrer">WhatsApp lister</a><a class="outline-button" href="tel:+${listing.phone}">Call ${listing.phone.slice(-4)}</a></div><small class="review-note">This listing was reviewed before publication. Please verify details during your visit.</small>`;
+    dialogContent.innerHTML = `<div class="detail-image" style="--listing-image: url('${listing.image}')"><span>${listing.available}</span></div><p class="eyebrow">${listing.locality} · ${listing.type}</p><h2 id="dialog-title">${listing.title}</h2><div class="detail-price"><strong>${money(listing.rent)}</strong><span>per month · ${listing.deposit} deposit</span></div><dl class="facts"><div><dt>Furnishing</dt><dd>${listing.furnishing}</dd></div><div><dt>Nearby</dt><dd>${listing.landmark}</dd></div></dl><div class="detail-tags">${listing.tags.map(tag => `<span>${tag}</span>`).join('')}</div><div class="contact-actions"><a role="button" href="${whatsappUrl(listing)}" target="_blank" rel="noreferrer">WhatsApp lister</a><a class="outline-button" href="tel:+${listing.phone}">Call ${listing.phone.slice(-4)}</a></div><button class="detail-share" id="share-listing" type="button">Copy listing link <span aria-hidden="true">&#8599;</span></button><small class="review-note">This listing was reviewed before publication. Please verify details during your visit.</small>`;
+    if (updateUrl) history.pushState({ listingId: id }, '', `#listing-${id}`);
+    document.querySelector('#share-listing').addEventListener('click', async event => {
+      await navigator.clipboard.writeText(window.location.href);
+      event.currentTarget.innerHTML = 'Listing link copied <span aria-hidden="true">&#10003;</span>';
+    });
     dialog.showModal();
   }
 
@@ -76,9 +81,20 @@
 
   filters.addEventListener('input', renderListings);
   filters.addEventListener('reset', () => setTimeout(renderListings));
-  document.querySelector('#dialog-close').addEventListener('click', () => dialog.close());
-  dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+  function closeDetails() {
+    dialog.close();
+    if (window.location.hash.startsWith('#listing-')) history.pushState({}, '', window.location.pathname + window.location.search);
+  }
+
+  document.querySelector('#dialog-close').addEventListener('click', closeDetails);
+  dialog.addEventListener('click', event => { if (event.target === dialog) closeDetails(); });
+  window.addEventListener('popstate', () => {
+    const match = window.location.hash.match(/^#listing-(\d+)$/);
+    if (match) openDetails(Number(match[1]), false);
+  });
   renderLocalities();
   populateFilters();
   renderListings();
+  const initialListing = window.location.hash.match(/^#listing-(\d+)$/);
+  if (initialListing) openDetails(Number(initialListing[1]), false);
 })();

@@ -112,6 +112,7 @@ dialog::backdrop { background: rgba(9,31,28,.68); backdrop-filter: blur(4px); }
 .facts dd { font-size: .83rem; margin: 0; }
 .contact-actions { display: flex; gap: .7rem; margin-top: 1.5rem !important; }
 .contact-actions a { margin: 0; text-align: center; }
+.detail-share { background: transparent; border: 0; color: var(--ink); font-size: .78rem; font-weight: 700; margin-top: 1rem; padding: 0; }
 .review-note { display: block; margin-top: 1.2rem !important; }
 @media (max-width: 800px) {
   .container { width: min(100% - 28px, 600px); }
