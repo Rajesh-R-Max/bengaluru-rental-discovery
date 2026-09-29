@@ -19,3 +19,17 @@ After deployment, use the public URL from Netlify or GitHub Pages. The homepage 
 ## Publish with Netlify
 
 Open [Netlify Drop](https://app.netlify.com/drop), sign in, and drag this folder into the upload area. Netlify will provide a public HTTPS URL that you can send to other people.
+
+## DEV and production on Netlify
+
+Netlify Drop is a manual upload service; it does not continuously build from GitHub. For automatic GitHub deployments, use **Add new site > Import an existing project > GitHub** in Netlify.
+
+Recommended setup:
+
+1. Create two Netlify sites from the same GitHub repository: `nammanest-dev` and `nammanest-prod`.
+2. Connect `nammanest-dev` to the `dev` branch.
+3. Connect `nammanest-prod` to the `main` branch.
+4. Use the `dev` site URL for testing and the production site URL for public sharing.
+5. Merge tested changes from `dev` into `main` to publish production.
+
+This repository has no build command. Set the publish directory to the repository root (`.`). The included `netlify.toml` records that configuration.
