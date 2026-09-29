@@ -26,8 +26,10 @@
   function populateFilters() {
     const localities = [...new Set(data.listings.map(listing => listing.locality))].sort();
     const types = [...new Set(data.listings.map(listing => listing.type))].sort();
+    const furnishings = [...new Set(data.listings.map(listing => listing.furnishing))].sort();
     document.querySelector('#locality-filter').insertAdjacentHTML('beforeend', localities.map(value => `<option value="${value}">${value}</option>`).join(''));
     document.querySelector('#type-filter').insertAdjacentHTML('beforeend', types.map(value => `<option value="${value}">${value}</option>`).join(''));
+    document.querySelector('#furnishing-filter').insertAdjacentHTML('beforeend', furnishings.map(value => `<option value="${value}">${value}</option>`).join(''));
   }
 
   function cardTemplate(listing) {
@@ -40,8 +42,9 @@
   function renderListings() {
     const locality = document.querySelector('#locality-filter').value;
     const type = document.querySelector('#type-filter').value;
+    const furnishing = document.querySelector('#furnishing-filter').value;
     const budget = Number(document.querySelector('#budget-filter').value || Infinity);
-    const matches = data.listings.filter(listing => (!locality || listing.locality === locality) && (!type || listing.type === type) && listing.rent <= budget);
+    const matches = data.listings.filter(listing => (!locality || listing.locality === locality) && (!type || listing.type === type) && (!furnishing || listing.furnishing === furnishing) && listing.rent <= budget);
     listingGrid.innerHTML = matches.map(cardTemplate).join('');
     resultsCount.textContent = `${matches.length} home${matches.length === 1 ? '' : 's'}`;
     emptyState.hidden = matches.length > 0;
