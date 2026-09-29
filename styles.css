@@ -101,6 +101,7 @@ h3 { margin: 0; }
 .consent { align-items: start; display: flex; gap: .5rem; font-weight: 400 !important; }
 .consent input { margin-top: .2rem; }
 .form-submit { border: 0; width: max-content; }
+.form-status { background: rgba(217,238,228,.16); border-left: 3px solid var(--yellow); color: white; font-size: .82rem; margin: 0; padding: .7rem .8rem; }
 .hidden-field { display: none; }
 .thank-you-page { align-items: center; background: var(--mint); display: flex; min-height: 100vh; }
 .thank-you { margin: auto; max-width: 560px; padding: 2rem; }

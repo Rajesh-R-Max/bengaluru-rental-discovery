@@ -8,6 +8,11 @@
   const dialog = document.querySelector('#listing-dialog');
   const dialogContent = document.querySelector('#dialog-content');
 
+  if (new URLSearchParams(window.location.search).has('submitted')) {
+    document.querySelector('#form-status').hidden = false;
+    document.querySelector('#list-home').scrollIntoView({ behavior: 'smooth' });
+  }
+
   const money = value => `₹${value.toLocaleString('en-IN')}`;
   const whatsappUrl = listing => `https://wa.me/${listing.phone}?text=${encodeURIComponent(`Hi, I found your ${listing.title} on NammaNest. Is it still available?`)}`;
 

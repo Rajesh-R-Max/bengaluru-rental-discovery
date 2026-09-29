@@ -100,7 +100,7 @@
     <section class="list-home-section" id="list-home">
       <div class="container list-home-inner">
         <div class="list-home-copy"><p class="eyebrow">For owners and current tenants</p><h2>Know a good home?</h2><p>Share the essentials and our small team will review the listing before it appears here.</p></div>
-        <form class="listing-form" name="rental-listing" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html">
+        <form class="listing-form" name="rental-listing" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/?submitted=true">
           <input type="hidden" name="form-name" value="rental-listing">
           <p class="hidden-field"><label>Do not fill this out: <input name="bot-field"></label></p>
           <div class="form-row"><label for="contact-name">Your name<input id="contact-name" name="name" type="text" autocomplete="name" required></label><label for="contact-phone">Phone / WhatsApp<input id="contact-phone" name="phone" type="tel" autocomplete="tel" required></label></div>
@@ -109,6 +109,7 @@
           <label for="property-landmark">Nearest landmark or useful details<textarea id="property-landmark" name="details" rows="3" required></textarea></label>
           <label class="consent"><input type="checkbox" name="consent" value="confirmed" required> I confirm these details are accurate and agree to be contacted about this listing.</label>
           <button class="light-button form-submit" type="submit">Submit for review <span aria-hidden="true">&#8599;</span></button>
+          <p class="form-status" id="form-status" role="status" hidden>Thanks, we received your listing. We will review it before publication.</p>
         </form>
       </div>
     </section>
