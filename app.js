@@ -7,11 +7,8 @@
   const filters = document.querySelector('#filters');
   const dialog = document.querySelector('#listing-dialog');
   const dialogContent = document.querySelector('#dialog-content');
-
-  if (new URLSearchParams(window.location.search).has('submitted')) {
-    document.querySelector('#form-status').hidden = false;
-    document.querySelector('#list-home').scrollIntoView({ behavior: 'smooth' });
-  }
+  const listingForm = document.querySelector('.listing-form');
+  const formStatus = document.querySelector('#form-status');
 
   const money = value => `₹${value.toLocaleString('en-IN')}`;
   const whatsappUrl = listing => `https://wa.me/${listing.phone}?text=${encodeURIComponent(`Hi, I found your ${listing.title} on NammaNest. Is it still available?`)}`;
@@ -93,6 +90,26 @@
 
   document.querySelector('#dialog-close').addEventListener('click', closeDetails);
   dialog.addEventListener('click', event => { if (event.target === dialog) closeDetails(); });
+  listingForm.addEventListener('submit', async event => {
+    event.preventDefault();
+    const submitButton = listingForm.querySelector('[type="submit"]');
+    submitButton.disabled = true;
+    submitButton.textContent = 'Sending...';
+    try {
+      const formData = new URLSearchParams(new FormData(listingForm));
+      const response = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: formData.toString() });
+      if (!response.ok) throw new Error(`Submission failed with ${response.status}`);
+      listingForm.reset();
+      formStatus.textContent = 'Thanks, we received your listing. We will review it before publication.';
+      formStatus.hidden = false;
+    } catch (error) {
+      formStatus.textContent = 'We could not submit the listing. Please try again or contact us directly.';
+      formStatus.hidden = false;
+    } finally {
+      submitButton.disabled = false;
+      submitButton.innerHTML = 'Submit for review <span aria-hidden="true">&#8599;</span>';
+    }
+  });
   window.addEventListener('popstate', () => {
     const match = window.location.hash.match(/^#listing-(\d+)$/);
     if (match) openDetails(Number(match[1]), false);
