@@ -99,8 +99,17 @@
 
     <section class="list-home-section" id="list-home">
       <div class="container list-home-inner">
-        <div><p class="eyebrow">For owners and current tenants</p><h2>Know a good home?</h2><p>Help someone find it. Submit the details and our small team will review the listing before it appears here.</p></div>
-        <a class="light-button" href="https://forms.google.com/" target="_blank" rel="noreferrer">Submit a listing <span aria-hidden="true">&#8599;</span></a>
+        <div class="list-home-copy"><p class="eyebrow">For owners and current tenants</p><h2>Know a good home?</h2><p>Share the essentials and our small team will review the listing before it appears here.</p></div>
+        <form class="listing-form" name="rental-listing" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html">
+          <input type="hidden" name="form-name" value="rental-listing">
+          <p class="hidden-field"><label>Do not fill this out: <input name="bot-field"></label></p>
+          <div class="form-row"><label for="contact-name">Your name<input id="contact-name" name="name" type="text" autocomplete="name" required></label><label for="contact-phone">Phone / WhatsApp<input id="contact-phone" name="phone" type="tel" autocomplete="tel" required></label></div>
+          <div class="form-row"><label for="property-locality">Locality<input id="property-locality" name="locality" type="text" placeholder="e.g. HSR Layout" required></label><label for="property-type">Home type<select id="property-type" name="property-type" required><option value="">Choose one</option><option>Studio</option><option>Room</option><option>1BHK</option><option>2BHK</option><option>3BHK</option></select></label></div>
+          <div class="form-row"><label for="property-rent">Monthly rent<input id="property-rent" name="rent" type="number" min="0" inputmode="numeric" placeholder="₹" required></label><label for="property-furnishing">Furnishing<select id="property-furnishing" name="furnishing" required><option value="">Choose one</option><option>Fully furnished</option><option>Semi furnished</option><option>Unfurnished</option></select></label></div>
+          <label for="property-landmark">Nearest landmark or useful details<textarea id="property-landmark" name="details" rows="3" required></textarea></label>
+          <label class="consent"><input type="checkbox" name="consent" value="confirmed" required> I confirm these details are accurate and agree to be contacted about this listing.</label>
+          <button class="light-button form-submit" type="submit">Submit for review <span aria-hidden="true">&#8599;</span></button>
+        </form>
       </div>
     </section>
   </main>
