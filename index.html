@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Find practical rental homes across Bengaluru, directly from local owners and listers.">
+  <title>NammaNest | Bengaluru rentals, without the runaround</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="container" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="NammaNest home"><span class="brand-mark">N</span><span>NammaNest</span></a>
+      <div class="nav-links">
+        <a href="#explore">Explore homes</a>
+        <a href="#how-it-works">How it works</a>
+        <a class="nav-cta" href="#list-home">List a home</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Bengaluru, made easier</p>
+          <h1>Find a place that feels like <em>your area.</em></h1>
+          <p class="hero-intro">Browse honest rental leads across the neighbourhoods you already know. Talk directly to the person who listed it.</p>
+          <div class="hero-actions">
+            <a href="#explore" role="button">Explore homes <span aria-hidden="true">&#8594;</span></a>
+            <a class="quiet-link" href="#list-home">Have a home to list?</a>
+            <button class="share-button" id="share-site" type="button">Share this site <span aria-hidden="true">&#8599;</span></button>
+          </div>
+          <div class="hero-proof"><span class="status-dot"></span><span>Local listings, reviewed before they go live</span></div>
+        </div>
+        <div class="hero-art" aria-label="A bright Bengaluru street with leafy trees and homes" role="img">
+          <div class="art-note"><span class="pin">&#9679;</span><span>Start close to home</span></div>
+          <div class="art-stat"><strong>4.8</strong><span>avg. locality rating</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="explore-section" id="explore">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">The neighbourhood shortlist</p>
+            <h2>Somewhere in Bengaluru</h2>
+          </div>
+          <p class="section-note">Start with the area you want to wake up in.</p>
+        </div>
+        <div class="locality-grid" id="locality-list" aria-label="Bengaluru localities"></div>
+      </div>
+    </section>
+
+    <section class="listings-section" id="listings">
+      <div class="container">
+        <div class="section-heading listings-heading">
+          <div>
+            <p class="eyebrow">Freshly reviewed</p>
+            <h2>Homes worth a look</h2>
+          </div>
+          <span class="results-count" id="results-count" aria-live="polite"></span>
+        </div>
+        <form class="filters" id="filters" aria-label="Filter listings">
+          <label>Locality<select id="locality-filter"><option value="">All areas</option></select></label>
+          <label>Home type<select id="type-filter"><option value="">All types</option></select></label>
+          <label>Monthly budget<select id="budget-filter"><option value="">Any budget</option><option value="25000">Up to ₹25,000</option><option value="40000">Up to ₹40,000</option><option value="60000">Up to ₹60,000</option></select></label>
+          <button type="reset" class="outline-button">Clear filters</button>
+        </form>
+        <div class="listing-grid" id="listing-grid"></div>
+        <div class="empty-state" id="empty-state" hidden>
+          <span class="empty-icon">⌕</span>
+          <h3>No homes match that search</h3>
+          <p>Try widening your budget or choosing a different locality.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-section" id="how-it-works">
+      <div class="container how-grid">
+        <div>
+          <p class="eyebrow">A lighter way to rent</p>
+          <h2>Less scrolling. More local context.</h2>
+        </div>
+        <div class="steps">
+          <article><span>01</span><h3>Pick your area</h3><p>Browse by the locality that fits your commute, pace, and everyday life.</p></article>
+          <article><span>02</span><h3>See the essentials</h3><p>Get the rent, deposit, furnishing, and nearby landmarks at a glance.</p></article>
+          <article><span>03</span><h3>Talk directly</h3><p>Use WhatsApp or phone to ask questions and arrange a visit yourself.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="list-home-section" id="list-home">
+      <div class="container list-home-inner">
+        <div><p class="eyebrow">For owners and current tenants</p><h2>Know a good home?</h2><p>Help someone find it. Submit the details and our small team will review the listing before it appears here.</p></div>
+        <a class="light-button" href="https://forms.google.com/" target="_blank" rel="noreferrer">Submit a listing <span aria-hidden="true">&#8599;</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-inner"><span class="brand"><span class="brand-mark">N</span><span>NammaNest</span></span><span>Made for finding your corner of Bengaluru.</span></div></footer>
+
+  <dialog id="listing-dialog" aria-labelledby="dialog-title">
+    <button class="dialog-close" id="dialog-close" aria-label="Close listing details">&#10005;</button>
+    <div id="dialog-content"></div>
+  </dialog>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
